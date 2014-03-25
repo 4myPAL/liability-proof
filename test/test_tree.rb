@@ -26,7 +26,7 @@ class TestTree < MiniTest::Unit::TestCase
     assert_equal right, node.right
 
     sum  = (left.sum + right.sum).to_s('F')
-    hash = LiabilityProof.sha256_base64 "#{sum}#{left.hash}#{right.hash}"
+    hash = LiabilityProof.sha256_base64 "#{sum}|#{left.hash}|#{right.hash}"
     assert_equal hash, node.hash
   end
 
