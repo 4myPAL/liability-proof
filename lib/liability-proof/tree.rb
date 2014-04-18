@@ -38,11 +38,19 @@ module LiabilityProof
       { 'partial_tree' => partial(user) }
     end
 
+    def last_user_node
+      @user_data
+    end
+
     private
 
     def _partial(user, node, index, acc)
       if node.is_a?(LeafNode)
-        acc['data'] = node.user == user ? node.as_user_json : node.as_json
+        if node.user == user
+          acc['data'] = @user_data = node.as_user_json
+        else
+          acc['data'] = node.as_json
+        end
       else
         follow_direction = index.shift
         other_direction  = follow_direction == :left ? :right : :left
